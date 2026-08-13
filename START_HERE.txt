@@ -1,0 +1,43 @@
+GreenPulse 4.1.0
+Touch grass. Digitally.
+
+AUTHOR
+Anamta Gohar
+anamta.gohar25@gmail.com
+
+QUICKEST WAY TO RUN
+1. Install Python 3.10+ and Git for Windows.
+2. Keep the full GreenPulse folder together.
+3. Double-click GreenPulse.exe.
+
+ALTERNATIVE SOURCE LAUNCH
+Double-click GreenPulse.bat.
+
+BUILD A STANDALONE WINDOWS EXE
+Double-click build_exe.bat.
+The finished file will be created at:
+  dist\GreenPulse.exe
+
+The standalone build embeds:
+  assets\greenpulse.ico
+
+IMPORTANT
+The GreenPulse.exe included in the project root is a lightweight source launcher.
+It requires the Python Launcher for Windows (pyw.exe) and the source files beside it.
+The standalone EXE produced by build_exe.bat packages the Python application and
+uses the GreenPulse icon.
+
+FIRST USE
+- Add a repository.
+- Enter a GitHub-associated commit email.
+- Set commits/day and the allowed time window.
+- Test connection.
+- Save the repository.
+- Press Start.
+
+PRIVATE REPOSITORIES
+They work if Git on your Windows account can already access the repository.
+GreenPulse delegates authentication to Git/Git Credential Manager.
+
+README.md contains the full file structure, architecture, build steps,
+troubleshooting, safety model, screenshots, GIF, and workflow documentation.
