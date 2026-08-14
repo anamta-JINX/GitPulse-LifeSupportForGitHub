@@ -16,6 +16,9 @@ class RepoConfig:
     end_time: str = "23:59"
     branch: str = ""
     enabled: bool = True
+    local_path: str = ""
+    local_sync_enabled: bool = False
+    calendar_plan: dict[str, list[str]] = field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> "RepoConfig":
@@ -23,6 +26,15 @@ class RepoConfig:
         item = cls(**allowed)
         item.commits_per_day = int(item.commits_per_day)
         item.enabled = bool(item.enabled)
+        item.local_sync_enabled = bool(item.local_sync_enabled)
+        if not isinstance(item.calendar_plan, dict):
+            item.calendar_plan = {}
+        else:
+            item.calendar_plan = {
+                str(date_key): [str(value) for value in values]
+                for date_key, values in item.calendar_plan.items()
+                if isinstance(values, list)
+            }
         return item
 
     def to_dict(self) -> dict[str, Any]:
@@ -39,7 +51,7 @@ class AppConfig:
     def from_dict(cls, data: dict[str, Any]) -> "AppConfig":
         repos = [RepoConfig.from_dict(item) for item in data.get("repositories", [])]
 
-        # Migrate the single-repository configuration used by GreenPulse 3.x.
+        # Migrate the single-repository configuration used by GitPulse 3.x.
         # This lets an existing installation open v4 without losing its saved repo.
         if not repos and data.get("repo_url"):
             repo_url = str(data.get("repo_url", ""))

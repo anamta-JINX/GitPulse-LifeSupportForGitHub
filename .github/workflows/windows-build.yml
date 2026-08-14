@@ -1,0 +1,47 @@
+name: Windows build
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild lightweight GUI launcher
+        shell: pwsh
+        run: python tools/build_gui_launcher.py
+
+      - name: Run tests
+        shell: pwsh
+        run: python -m unittest discover -s tests -v
+
+      - name: Build standalone app
+        shell: pwsh
+        run: |
+          python -m pip install --disable-pip-version-check pyinstaller
+          python -m PyInstaller --noconfirm --clean --paths "$pwd" GitPulse.spec
+          .\dist\GitPulse.exe --self-test
+
+      - name: Upload GitPulse.exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: GitPulse-Windows-x64
+          path: dist/GitPulse.exe
+          if-no-files-found: error
+          retention-days: 30

@@ -4,15 +4,15 @@ from PyInstaller.utils.hooks import collect_submodules
 
 ROOT = Path(SPECPATH).resolve()
 
-hiddenimports = collect_submodules("greenpulse")
+hiddenimports = collect_submodules("gitpulse")
 
 a = Analysis(
-    [str(ROOT / "GreenPulse.pyw")],
+    [str(ROOT / "GitPulse.pyw")],
     pathex=[str(ROOT)],
     binaries=[],
     datas=[
-        (str(ROOT / "assets" / "greenpulse-logo.png"), "assets"),
-        (str(ROOT / "assets" / "greenpulse.ico"), "assets"),
+        (str(ROOT / "assets" / "gitpulse-logo.png"), "assets"),
+        (str(ROOT / "assets" / "gitpulse.ico"), "assets"),
     ],
     hiddenimports=hiddenimports,
     hookspath=[],
@@ -30,16 +30,16 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name="GreenPulse",
+    name="GitPulse",
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
     console=False,
-    disable_windowed_traceback=False,
+    disable_windowed_traceback=True,
     argv_emulation=False,
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon=str(ROOT / "assets" / "greenpulse.ico"),
+    icon=str(ROOT / "assets" / "gitpulse.ico"),
 )

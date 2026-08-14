@@ -4,7 +4,7 @@ cd /d "%~dp0"
 
 echo.
 echo ========================================
-echo   GreenPulse Windows EXE Builder
+echo   GitPulse Windows EXE Builder
 echo ========================================
 echo.
 
@@ -34,29 +34,32 @@ echo [3/5] Cleaning previous build output...
 if exist build rmdir /s /q build
 if exist dist rmdir /s /q dist
 
-echo [4/5] Building GreenPulse.exe...
-"%PY%" -m PyInstaller --noconfirm --clean --paths "%CD%" GreenPulse.spec
+echo [4/5] Building GitPulse.exe...
+"%PY%" -m PyInstaller --noconfirm --clean --paths "%CD%" GitPulse.spec
 if errorlevel 1 goto :fail
 
-if not exist "dist\GreenPulse.exe" (
-    echo ERROR: PyInstaller completed but dist\GreenPulse.exe was not created.
+if not exist "dist\GitPulse.exe" (
+    echo ERROR: PyInstaller completed but dist\GitPulse.exe was not created.
     goto :fail
 )
 
 echo [5/5] Verifying packaged imports...
-"dist\GreenPulse.exe" --self-test
+"dist\GitPulse.exe" --self-test
 if errorlevel 1 (
     echo ERROR: The EXE was created but failed its package self-test.
-    echo This prevents broken builds such as "No module named greenpulse" from being shipped.
+    echo This prevents broken builds such as "No module named gitpulse" from being shipped.
     goto :fail
 )
 
 echo.
 echo SUCCESS
-for %%A in ("dist\GreenPulse.exe") do echo Built: %%~fA ^(%%~zA bytes^)
-echo Icon: assets\greenpulse.ico
+for %%A in ("dist\GitPulse.exe") do echo Built: %%~fA ^(%%~zA bytes^)
+echo Icon: assets\gitpulse.ico
 echo.
-start "" explorer.exe /select,"%CD%\dist\GreenPulse.exe"
+echo IMPORTANT: dist\GitPulse.exe is the real standalone application.
+echo It can be copied anywhere and does not need Python or the source folder.
+echo.
+start "" explorer.exe /select,"%CD%\dist\GitPulse.exe"
 pause
 exit /b 0
 

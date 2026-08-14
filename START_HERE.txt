@@ -1,31 +1,83 @@
-GreenPulse 4.1.0
-Touch grass. Digitally.
+GitPulse 1.5.0
+Life support for GitHub.
 
 AUTHOR
 Anamta Gohar
 anamta.gohar25@gmail.com
 
-QUICKEST WAY TO RUN
+QUICKEST WAY TO RUN FROM SOURCE
 1. Install Python 3.10+ and Git for Windows.
-2. Keep the full GreenPulse folder together.
-3. Double-click GreenPulse.exe.
+2. Keep the full GitPulse folder together.
+3. Double-click GitPulse.exe.
 
 ALTERNATIVE SOURCE LAUNCH
-Double-click GreenPulse.bat.
+Double-click run_gitpulse.vbs for a silent compatibility launch.
+Double-click run_gitpulse.bat.
 
-BUILD A STANDALONE WINDOWS EXE
+BUILD THE REAL STANDALONE WINDOWS EXE
 Double-click build_exe.bat.
 The finished file will be created at:
-  dist\GreenPulse.exe
+  dist\GitPulse.exe
 
 The standalone build embeds:
-  assets\greenpulse.ico
+  assets\gitpulse.ico
 
 IMPORTANT
-The GreenPulse.exe included in the project root is a lightweight source launcher.
+The GitPulse.exe included in the project root is a complete appended-archive GUI launcher.
 It requires the Python Launcher for Windows (pyw.exe) and the source files beside it.
 The standalone EXE produced by build_exe.bat packages the Python application and
-uses the GreenPulse icon.
+uses the GitPulse icon.
+
+VERSION 1.5.0 LAUNCH FIXES
+- The bare launcher-stub error ("Unable to find an appended archive") is fixed.
+- Startup is anchored to the application folder, including Desktop shortcuts.
+- Python-side startup failures now show a native error dialog.
+- Diagnostics are written to:
+  %USERPROFILE%\.gitpulse\startup-error.log
+- Create GitPulse Shortcut.bat prefers the standalone dist build when present.
+
+ADD / EDIT FIX
+- The Add repository / Save changes action bar stays pinned to the bottom.
+- The form scrolls at high Windows display scaling, so Save cannot be clipped.
+
+HOURLY LOCAL SYNC
+- Select a repository, then choose Hourly sync.
+- Turn it on and choose the matching local Git repository folder.
+- Select Save & check now. GitPulse validates it and checks immediately.
+- Use git add yourself to stage exactly what GitPulse may commit.
+- Automation starts in the background and checks every 60 minutes.
+- Scheduled pulse commits use the simple subject: Update
+- Hourly staged-file commits use the simple subject: Update files
+- If pulse commits put the local branch behind, GitPulse safely catches up when
+  needed, rebases local commits, and restores your exact staged work.
+- Failed hourly checks retry automatically after 5 minutes.
+- An old background worker is detected and replaced automatically after upgrade.
+- The exact sync failure appears directly on the repository dashboard.
+- Unstaged and untracked files are never added or committed.
+- Double-click a failed Activity row to see the exact error.
+- Long repository names pause for 3 seconds, then slide so the full name is visible.
+
+AUTOMATIC PULSE SPAN
+- Select a repository, then choose Pulse span.
+- Pick a start date and a span of 1 to 30 days.
+- Enter one Pulses for full span value. There is no pulses-per-day setting in
+  automatic span mode.
+- Choose start/end hour (1-12), minute and AM/PM from the dropdowns.
+- Select Generate span. GitPulse randomly divides the exact total across the
+  selected dates, with at least one pulse on every day.
+- Inspect any date, then select Save & start.
+- A saved span is the complete schedule; no normal daily pulses are added before
+  or after it.
+- When the full span finishes, GitPulse sends a Windows notification.
+- All visible GitPulse times use AM/PM.
+
+BACKGROUND + WINDOWS TRAY
+- Saving a pulse span enables Start in background with Windows.
+- GitPulse starts silently after Windows sign-in and appears in the notification
+  area / hidden taskbar icons even when the dashboard is closed.
+- Double-click the tray icon to open GitPulse.
+- Right-click it to open GitPulse or exit the background worker.
+- Span progress survives a restart and a completion notification is sent once.
 
 FIRST USE
 - Add a repository.
@@ -33,11 +85,17 @@ FIRST USE
 - Set commits/day and the allowed time window.
 - Test connection.
 - Save the repository.
-- Press Start.
+- Press Start in the bottom-left panel.
+
+PULSE NOW
+- Starts immediately; it does not wait for the scheduled time.
+- The button locks and shows an animated loading state until Git finishes.
+- If gitpulse.txt is missing, the first pulse creates it.
+- If it already exists, GitPulse preserves it and updates the daily pulse line.
 
 PRIVATE REPOSITORIES
 They work if Git on your Windows account can already access the repository.
-GreenPulse delegates authentication to Git/Git Credential Manager.
+GitPulse delegates authentication to Git/Git Credential Manager.
 
 README.md contains the full file structure, architecture, build steps,
 troubleshooting, safety model, screenshots, GIF, and workflow documentation.

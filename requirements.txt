@@ -1,2 +1,2 @@
-# GreenPulse source uses only the Python standard library.
+# GitPulse source uses only the Python standard library.
 # PyInstaller is installed only when build_exe.bat is run.
