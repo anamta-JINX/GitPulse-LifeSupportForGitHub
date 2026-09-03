@@ -343,6 +343,7 @@ class GitPulseCoreTests(unittest.TestCase):
         tray_source = (root / "gitpulse" / "tray.py").read_text(encoding="utf-8")
         scheduler_source = (root / "gitpulse" / "scheduler.py").read_text(encoding="utf-8")
         self.assertIn("Shell_NotifyIconW", tray_source)
+        self.assertIn('getattr(wintypes, "HCURSOR", wintypes.HANDLE)', tray_source)
         self.assertIn("GitPulse — Background automation", tray_source)
         self.assertIn("Exit background worker", tray_source)
         self.assertIn('"GitPulse span complete"', scheduler_source)
