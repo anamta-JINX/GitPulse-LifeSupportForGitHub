@@ -12,6 +12,7 @@ if os.name == "nt":
     from ctypes import wintypes
 
     _LRESULT = ctypes.c_ssize_t
+    _HCURSOR = getattr(wintypes, "HCURSOR", wintypes.HANDLE)
     _WNDPROC = ctypes.WINFUNCTYPE(_LRESULT, wintypes.HWND, wintypes.UINT, wintypes.WPARAM, wintypes.LPARAM)
 
     class _GUID(ctypes.Structure):
@@ -49,7 +50,7 @@ if os.name == "nt":
             ("cbWndExtra", ctypes.c_int),
             ("hInstance", wintypes.HINSTANCE),
             ("hIcon", wintypes.HICON),
-            ("hCursor", wintypes.HCURSOR),
+            ("hCursor", _HCURSOR),
             ("hbrBackground", wintypes.HBRUSH),
             ("lpszMenuName", wintypes.LPCWSTR),
             ("lpszClassName", wintypes.LPCWSTR),
