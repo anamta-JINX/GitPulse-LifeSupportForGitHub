@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible GitPulse problem
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve GitPulse. Remove credentials and private repository data before posting logs.
+  - type: input
+    id: version
+    attributes:
+      label: GitPulse version
+      placeholder: v1.6.2
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant error text
+      description: Do not include passwords, tokens, private URLs or sensitive paths.
+      render: text

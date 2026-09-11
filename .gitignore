@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+.venv-build/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build output
+build/
+dist/
+.dist/
+*.spec.bak
+
+# Logs / local diagnostics
+*.log
+startup-error.log
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
