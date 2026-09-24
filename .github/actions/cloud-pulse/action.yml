@@ -1,0 +1,53 @@
+name: GitPulse Cloud Pulse
+description: Run GitPulse headlessly in a GitHub Actions caller repository using stable daily random times.
+
+inputs:
+  repo-id:
+    description: Stable identifier used by GitPulse's random schedule seed.
+    required: false
+    default: cloud
+  repo-url:
+    description: Repository URL used by the random schedule seed. Defaults to origin.
+    required: false
+    default: ""
+  pulses-per-day:
+    description: Number of automatic pulses per day.
+    required: false
+    default: "2"
+  start-time:
+    description: Earliest daily pulse time in 24-hour HH:MM.
+    required: false
+    default: "10:00"
+  end-time:
+    description: Latest daily pulse time in 24-hour HH:MM.
+    required: false
+    default: "21:59"
+  timezone:
+    description: IANA timezone used for date and clock calculations.
+    required: false
+    default: Asia/Karachi
+  target-file:
+    description: File GitPulse is allowed to change.
+    required: false
+    default: gitpulse.txt
+  commit-name:
+    description: Git commit author name.
+    required: false
+    default: GitPulse
+  commit-email:
+    description: Git commit author email associated with the GitHub account.
+    required: true
+  max-wait-seconds:
+    description: Maximum short wait used to hit an exact random minute.
+    required: false
+    default: "1860"
+
+runs:
+  using: composite
+  steps:
+    - name: Run GitPulse cloud scheduler
+      shell: bash
+      env:
+        GITPULSE_ACTION_ROOT: ${{ github.action_path }}
+      run: |
+        python3 "$GITPULSE_ACTION_ROOT/../../../scripts/cloud/run_cloud_pulse.py"           --repo-dir "$GITHUB_WORKSPACE"           --repo-id "${{ inputs.repo-id }}"           --repo-url "${{ inputs.repo-url }}"           --count "${{ inputs.pulses-per-day }}"           --start-time "${{ inputs.start-time }}"           --end-time "${{ inputs.end-time }}"           --timezone "${{ inputs.timezone }}"           --target-file "${{ inputs.target-file }}"           --commit-name "${{ inputs.commit-name }}"           --commit-email "${{ inputs.commit-email }}"           --max-wait-seconds "${{ inputs.max-wait-seconds }}"
